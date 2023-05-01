@@ -1,12 +1,4 @@
-const Pool = require('pg-pool');
-
-const pool = new Pool({
-  user: 'brentrucker',
-  host: 'localhost',
-  database: 'brentrucker',
-  password: undefined,
-  port: 5432,
-});
+const pool = require('../config/index').pool;
 
 const getUsers = async (req,res) => {
     try {
