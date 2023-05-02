@@ -1,8 +1,9 @@
+// @ts-ignore
 import pkg from 'pg';
 const { Pool } = pkg;
-import env from 'dotenv';
+import * as env from 'dotenv';
 env.config();
-import { processes } from '../../db.config.js';
+import { processes } from '../../db.config';
 
 const pool = new Pool({
   user: processes.USER,

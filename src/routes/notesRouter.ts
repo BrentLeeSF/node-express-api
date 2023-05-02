@@ -1,5 +1,6 @@
+// @ts-ignore
 import express from 'express';
-import NotesController from '../controllers/notesController.js';
+import NotesController from '../controllers/notesController';
 
 const router = express.Router();
 

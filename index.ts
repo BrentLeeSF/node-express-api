@@ -4,7 +4,7 @@ const app = express();
 import env from 'dotenv';
 env.config();
 
-import router from './src/routes/index.js';
+import router from './src/routes';
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
