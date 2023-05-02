@@ -1,14 +1,15 @@
-const Pool = require('pg-pool');
-const dbConfig = require('../../db.config');
+import pkg from 'pg';
+const { Pool } = pkg;
+import env from 'dotenv';
+env.config();
+import { processes } from '../../db.config.js';
 
 const pool = new Pool({
-  user: dbConfig.USER,
-  host: dbConfig.HOST,
-  database: dbConfig.DB,
-  password: dbConfig.PASSWORD,
-  port: dbConfig.PORT,
+  user: processes.USER,
+  host: processes.HOST,
+  database: processes.DB,
+  password: processes.PASSWORD,
+  port: processes.PORT,
 });
 
-module.exports = {
-  pool
-}
+export default pool;

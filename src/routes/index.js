@@ -1,7 +1,9 @@
-const express = require("express");
-const router = express.Router();
-const { getUsers } = require('../controllers/notes.controller');
+import notesRouter from './notesRouter.js';
 
-router.get('/notes', getUsers);
+export default (app) => {
+  app.get('/api/v1/', (req, res) => {
+    res.json({ message: 'Awesome api' });
+  });
 
-module.exports = router;
+  app.use('/api/v1/', [notesRouter]);
+};
