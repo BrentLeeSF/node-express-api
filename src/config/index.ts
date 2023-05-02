@@ -1,4 +1,3 @@
-// @ts-ignore
 import pkg from 'pg';
 const { Pool } = pkg;
 import * as env from 'dotenv';

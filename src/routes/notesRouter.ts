@@ -1,4 +1,3 @@
-// @ts-ignore
 import express from 'express';
 import NotesController from '../controllers/notesController';
 
