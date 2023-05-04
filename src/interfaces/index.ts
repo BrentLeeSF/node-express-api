@@ -1,12 +1,10 @@
 export interface Note {
-    id?: number;
     first_name?: string;
     last_name?: string;
     user_permission?: number;
     team_id?: number;
     note: string;
     rating: number;
-    create_date?: Date | string;
 }
 
 export interface NoteResponse {
@@ -18,4 +16,8 @@ export interface NoteResponse {
     rating: number;
     note: string;
     date: Date | string;
+}
+
+export interface idResponse {
+    id: number;
 }

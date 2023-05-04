@@ -1,5 +1,5 @@
 import pool from '../config/index';
-import { Note, NoteResponse } from '../interfaces';
+import { Note, NoteResponse, idResponse } from '../interfaces';
 import { getAllNotesQuery } from '../queries/getAllNotesQuery';
 import { whereId } from '../queries/whereIdEquals';
 import { orderById } from '../queries/orderByPlayerId';
@@ -11,12 +11,12 @@ export async function getAllNotes(): Promise<NoteResponse[]> {
     return rows;
 };
 
-export async function getNoteById(id: number): Promise<NoteResponse> {
+export async function getNoteById(id: number): Promise<NoteResponse[]> {
     const getNote = await pool.query(getAllNotesQuery + whereId, [id]);
     return getNote.rows;
 };
 
-export async function createNote(note: Note): Promise<Note> {
+export async function createNote(note: Note): Promise<idResponse[]> {
     const noteCreated = await pool.query(
         postPlayerNoteQuery,
         [
@@ -27,13 +27,12 @@ export async function createNote(note: Note): Promise<Note> {
             note.note,
             note.rating
         ]);
-        console.log('noteCreated - ',noteCreated);
     return noteCreated.rows;
 };
 
 export async function updateNoteById(
     id: number, note: string, rating: number
-): Promise<Note> {
+): Promise<idResponse[]> {
     const getNote = await pool.query(updatePlayerNoteQuery, [note, rating, id]);
     return getNote.rows;
 };

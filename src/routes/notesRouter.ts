@@ -30,7 +30,7 @@ app.get('/notes', async (req: Request, res: Response) => {
 app.get('/note/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const noteResponse: NoteResponse = await getNoteById(+id);
+    const noteResponse: NoteResponse[] = await getNoteById(+id);
     res.status(200).json(noteResponse);
   }
   catch(error) {
@@ -54,8 +54,8 @@ app.post('/note', async (req: Request, res: Response) => {
       note: req.body.note,
       rating: req.body.rating
     }
-    const noteResponse = await createNote(noteRequest);
-    res.status(200).json(noteResponse);
+    const postNoteResponseId = await createNote(noteRequest);
+    res.status(200).json(postNoteResponseId);
   }
   catch(error) {
     res.send("Error: "+error);
@@ -72,8 +72,8 @@ app.put('/note/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { note, rating } = req.body;
-    const noteResponse = await updateNoteById(+id, note, +rating);
-    res.status(200).json(noteResponse);
+    const noteResponseId = await updateNoteById(+id, note, +rating);
+    res.status(200).json(noteResponseId);
   }
   catch(error) {
     res.send("Error: "+error);
