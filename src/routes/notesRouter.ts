@@ -1,7 +1,7 @@
 
 import express, { Request, Response } from 'express';
 import { getAllNotes, createNote, getNoteById, updateNoteById } from '../controllers/notesController';
-import { Note, NoteResponse } from '../interfaces';
+import { Note, NoteResponse, idResponse } from '../interfaces';
 
 const app = express();
 app.use(express.json());
@@ -54,7 +54,7 @@ app.post('/note', async (req: Request, res: Response) => {
       note: req.body.note,
       rating: req.body.rating
     }
-    const postNoteResponseId = await createNote(noteRequest);
+    const postNoteResponseId: idResponse[] = await createNote(noteRequest);
     res.status(200).json(postNoteResponseId);
   }
   catch(error) {
@@ -72,7 +72,7 @@ app.put('/note/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { note, rating } = req.body;
-    const noteResponseId = await updateNoteById(+id, note, +rating);
+    const noteResponseId: idResponse[] = await updateNoteById(+id, note, +rating);
     res.status(200).json(noteResponseId);
   }
   catch(error) {
