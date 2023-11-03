@@ -160,17 +160,72 @@ values (
 );
 
 
-/**
-{
-    "first_name": "Giannia",
-    "last_name": "Anticoupo",
-    "user_permission": 1,
-    "team_id": 6,
-    "note": "I make a lot of shots. Seriously, for real",
-    "rating": 5
-}
-*/
+create table player_stats_by_year (
+	id SERIAL PRIMARY KEY,
+	player_id INTEGER REFERENCES user_note_info(id) NOT NULL,
+	season_started INTEGER NOT NULL,
+	season_ended INTEGER NOT NULL,
+	games_played INTEGER NOT NULL,
+	minutes_played NUMERIC NOT NULL,
+	field_goal_percentage NUMERIC NOT NULL,
+	three_point_percentage NUMERIC NOT NULL,
+	two_point_percentage NUMERIC NOT NULL,
+	rebounds NUMERIC NOT NULL,
+	assists NUMERIC NOT NULL,
+	steals NUMERIC NOT NULL,
+	blocks NUMERIC NOT NULL,
+	turnovers NUMERIC NOT NULL,
+	points NUMERIC NOT NULL
+);
 
+insert into player_stats_by_year(
+	player_id,
+	season_started,
+	season_ended,
+	games_played,
+	minutes_played,
+	field_goal_percentage,
+	three_point_percentage,
+	two_point_percentage,
+	rebounds,
+	assists,
+	steals,
+	blocks,
+	turnovers,
+	points
+)
+values (
+	1,
+	2009,
+	2010,
+	80,
+	36.2,
+	.462,
+	.437,
+	.474,
+	4.5,
+	5.9,
+	1.9,
+	0.2,
+	3.0,
+	17.5
+),
+(
+	1,
+	2010,
+	2011,
+	74,
+	33.6,
+	.480,
+	.442,
+	.498,
+	3.9,
+	5.8,
+	1.5,
+	0.3,
+	3.1,
+	18.6
+);
 
 select 
 	use.id as player_id,
@@ -180,7 +235,11 @@ select
 	con.conference_name as conference_name,
 	use.rating as rating,
 	use.note as note,
-	use.create_date as date
+	use.create_date as date,
+	CONCAT(stats.season_started, '-',stats.season_ended) as season,
+	stats.games_played as games,
+	stats.minutes_played as minutes,
+	stats.points as points
 from user_note_info as use
 left join team as tm
 	on use.team_id = tm.id
@@ -188,5 +247,7 @@ left join conference as con
 	on tm.conference_id = con.id
 left join user_permissions as permission
 	on use.user_permission = permission.id
-where use.id = 2
+left join player_stats_by_year as stats
+	on use.id = player_id
+where use.id = 1
 order by use.id asc;
